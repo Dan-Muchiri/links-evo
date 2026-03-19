@@ -1,0 +1,21 @@
+<svg width="200" height="48" viewBox="0 0 200 48" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="Links-Evo Engineering">
+  <line x1="8" y1="8"  x2="40" y2="8"  stroke="#1a4a1e" stroke-width="1.5" stroke-linecap="round"/>
+  <line x1="8" y1="24" x2="40" y2="24" stroke="#1a4a1e" stroke-width="1.5" stroke-linecap="round"/>
+  <line x1="8" y1="40" x2="40" y2="40" stroke="#1a4a1e" stroke-width="1.5" stroke-linecap="round"/>
+  <line x1="8"  y1="8" x2="8"  y2="40" stroke="#1a4a1e" stroke-width="1.5" stroke-linecap="round"/>
+  <line x1="24" y1="8" x2="24" y2="40" stroke="#1a4a1e" stroke-width="1.5" stroke-linecap="round"/>
+  <line x1="40" y1="8" x2="40" y2="40" stroke="#1a4a1e" stroke-width="1.5" stroke-linecap="round"/>
+  <circle cx="8"  cy="8"  r="3" fill="#1a4a1e"/>
+  <circle cx="24" cy="8"  r="3" fill="#1a4a1e"/>
+  <circle cx="40" cy="8"  r="3" fill="#1a4a1e"/>
+  <circle cx="8"  cy="24" r="3" fill="#1a4a1e"/>
+  <circle cx="24" cy="24" r="4.5" fill="#b89a4a"/>
+  <circle cx="40" cy="24" r="3" fill="#1a4a1e"/>
+  <circle cx="8"  cy="40" r="3" fill="#1a4a1e"/>
+  <circle cx="24" cy="40" r="3" fill="#1a4a1e"/>
+  <circle cx="40" cy="40" r="3" fill="#1a4a1e"/>
+  <text x="56" y="19" font-family="'Playfair Display', Georgia, serif" font-size="17" font-weight="700" fill="#0f1a10" letter-spacing="-0.3">Links</text>
+  <rect x="56" y="24" width="38" height="1.5" rx="0.75" fill="#2d6b33" opacity="0.4"/>
+  <text x="56" y="40" font-family="'Playfair Display', Georgia, serif" font-size="17" font-weight="700" font-style="italic" fill="#2d6b33" letter-spacing="-0.3">Evo</text>
+  <text x="100" y="40" font-family="'DM Mono', 'Courier New', monospace" font-size="10" fill="#1a4a1e" letter-spacing="1.5">ENGINEERING</text>
+</svg>

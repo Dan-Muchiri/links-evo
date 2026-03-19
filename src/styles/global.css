@@ -1,0 +1,129 @@
+/* ── Design Tokens ── */
+:root {
+  --white:       #fafaf7;
+  --off:         #f2f0eb;
+  --ink:         #0f1a10;
+  --ink-muted:   #4a5e4b;
+  --green:       #1a4a1e;
+  --green-mid:   #2d6b33;
+  --green-light: #e8f0e9;
+  --gold:        #b89a4a;
+  --gold-light:  #f5edda;
+  --border:      #d8d4c8;
+  --border-dark: #c2bdb0;
+}
+
+/* ── Reset ── */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  font-size: 16.5px;
+}
+
+body {
+  background: var(--white);
+  color: var(--ink);
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 300;
+  overflow-x: hidden;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+ul {
+  list-style: none;
+}
+
+button {
+  cursor: pointer;
+  font-family: inherit;
+}
+
+/* ── Shared Layout ── */
+.section-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 96px 56px;
+}
+
+.label-row {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 12px;
+}
+
+.label-line {
+  width: 32px;
+  height: 1px;
+  background: var(--green-mid);
+  flex-shrink: 0;
+}
+
+.label-text {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.62rem;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--green-mid);
+}
+
+.section-h {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(2rem, 4vw, 3.4rem);
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  color: var(--ink);
+}
+
+.section-h em {
+  font-style: italic;
+  color: var(--green-mid);
+}
+
+/* ── Shared Buttons ── */
+.btn-fill {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.7rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  background: var(--green);
+  color: var(--white);
+  padding: 14px 32px;
+  display: inline-block;
+  transition: background 0.25s, transform 0.2s;
+  border: none;
+}
+
+.btn-fill:hover {
+  background: var(--green-mid);
+  transform: translateY(-2px);
+}
+
+/* ── Reveal Animation ── */
+.reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ── Responsive ── */
+@media (max-width: 768px) {
+  .section-inner {
+    padding: 64px 24px;
+  }
+}
