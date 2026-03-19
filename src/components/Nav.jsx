@@ -10,8 +10,8 @@ export default function Nav() {
       </a>
 
       <ul className={styles.navLinks}>
-        <li><a href="#approach">About</a></li>
         <li><a href="#services">Services</a></li>
+        <li><a href="#approach">About</a></li>
         <li><a href="#clients">Clients</a></li>
         <li><a href="#process">Process</a></li>
         <li><a href="#quote">Contact</a></li>

@@ -17,8 +17,8 @@ export default function App() {
       <Nav />
       <main>
         <Hero onServiceClick={setOpenService} />
-        <Approach />
         <Services openService={openService} setOpenService={setOpenService} />
+        <Approach />
         <Clients />
         <Process />
         <Quote />
