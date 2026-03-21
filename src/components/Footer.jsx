@@ -20,10 +20,18 @@ const SECTORS = [
   'Developers & FM',
 ]
 
+const SOCIAL = [
+  { label: 'Facebook',  href: 'https://www.facebook.com/profile.php?id=61578430862392' },
+  { label: 'Instagram', href: 'https://www.instagram.com/linksevo/' },
+  { label: 'TikTok',    href: 'https://www.tiktok.com/@linksevo' },
+  { label: 'WhatsApp',  href: 'https://wa.me/254706318757' },
+]
+
 export default function Footer() {
   return (
     <footer className={styles.footer}>
       <div className={styles.top}>
+
         <div className={styles.brand}>
           <Logo variant="dark" width={160} showTag={true} />
           <p>
@@ -59,6 +67,24 @@ export default function Footer() {
             <li><a href="#quote">Emergency Call-Out</a></li>
           </ul>
         </div>
+
+        <div className={styles.col}>
+          <h5>Follow</h5>
+          <ul>
+            {SOCIAL.map((s) => (
+              <li key={s.label}>
+                <a
+                  href={s.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  {s.label}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
+
       </div>
 
       <div className={styles.bottom}>

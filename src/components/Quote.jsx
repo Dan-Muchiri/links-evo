@@ -3,10 +3,10 @@ import useReveal from '../hooks/useReveal'
 import styles from './Quote.module.css'
 
 const CONTACT = [
-  { icon: '📞', label: 'Phone', value: '+254 706 318 757' },
-  { icon: '💬', label: 'WhatsApp', value: '+254 706 318 757' },
-  { icon: '📧', label: 'Email', value: 'info@links-evo.co.ke' },
-  { icon: '📍', label: 'Location', value: 'Nairobi, Kenya' },
+  { icon: '📞', label: 'Phone',     value: '+254 706 318 757',        href: 'tel:+254706318757' },
+  { icon: '💬', label: 'WhatsApp',  value: '+254 706 318 757',        href: 'https://wa.me/254706318757' },
+  { icon: '📧', label: 'Email',     value: 'info@links-evo.co.ke',    href: 'mailto:info@links-evo.co.ke' },
+  { icon: '📍', label: 'Location',  value: 'Nairobi, Kenya',          href: null },
 ]
 
 const CLIENT_TYPES = [
@@ -34,21 +34,19 @@ const SERVICES = [
 const FORMSPREE_URL = 'https://formspree.io/f/xaqpzwez'
 
 export default function Quote() {
-  const [status, setStatus] = useState('idle') // idle | sending | sent | error
+  const [status, setStatus] = useState('idle')
   const [leftRef, leftVisible] = useReveal()
   const [rightRef, rightVisible] = useReveal(0.05, 150)
 
   const handleSubmit = async (e) => {
     e.preventDefault()
     setStatus('sending')
-
     try {
       const res = await fetch(FORMSPREE_URL, {
         method: 'POST',
         headers: { 'Accept': 'application/json' },
         body: new FormData(e.target),
       })
-
       if (res.ok) {
         setStatus('sent')
         e.target.reset()
@@ -95,7 +93,18 @@ export default function Quote() {
                   <div className={styles.contactIcon}>{c.icon}</div>
                   <div className={styles.contactText}>
                     <div className={styles.contactLabel}>{c.label}</div>
-                    <span>{c.value}</span>
+                    {c.href ? (
+                      <a
+                        href={c.href}
+                        target={c.href.startsWith('http') ? '_blank' : undefined}
+                        rel={c.href.startsWith('http') ? 'noopener noreferrer' : undefined}
+                        className={styles.contactLink}
+                      >
+                        {c.value}
+                      </a>
+                    ) : (
+                      <span>{c.value}</span>
+                    )}
                   </div>
                 </div>
               ))}
@@ -108,14 +117,11 @@ export default function Quote() {
             className={`reveal ${rightVisible ? 'visible' : ''}`}
             style={{ transitionDelay: '0.15s' }}
           >
-            {/* Success banner */}
             {status === 'sent' && (
               <div className={styles.successBanner}>
                 We've received your request and will be in touch within 24 hours.
               </div>
             )}
-
-            {/* Error banner */}
             {status === 'error' && (
               <div className={styles.errorBanner}>
                 Something went wrong. Please email us directly at info@links-evo.co.ke
@@ -123,7 +129,6 @@ export default function Quote() {
             )}
 
             <form className={styles.form} onSubmit={handleSubmit}>
-
               <div className={styles.row}>
                 <div className={styles.field}>
                   <label className={styles.label}>Full Name *</label>
@@ -191,7 +196,6 @@ export default function Quote() {
                   {btnLabel}
                 </button>
               </div>
-
             </form>
           </div>
         </div>

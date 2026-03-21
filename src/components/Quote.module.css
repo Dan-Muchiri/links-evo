@@ -254,3 +254,15 @@
 .submitError {
   background: #dc2626 !important;
 }
+
+/* Social / clickable contact links */
+.contactLink {
+  font-size: 0.85rem;
+  color: var(--ink);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.contactLink:hover {
+  color: var(--green-mid);
+}
