@@ -3,8 +3,8 @@ import useReveal from '../hooks/useReveal'
 import styles from './Quote.module.css'
 
 const CONTACT = [
-  { icon: '📞', label: 'Phone', value: '+254 700 000 000' },
-  { icon: '💬', label: 'WhatsApp', value: '+254 700 000 000' },
+  { icon: '📞', label: 'Phone', value: '+254 706 318 757' },
+  { icon: '💬', label: 'WhatsApp', value: '+254 706 318 757' },
   { icon: '📧', label: 'Email', value: 'info@links-evo.co.ke' },
   { icon: '📍', label: 'Location', value: 'Nairobi, Kenya' },
 ]
@@ -31,39 +31,52 @@ const SERVICES = [
   'Other / Not Sure',
 ]
 
+const FORMSPREE_URL = 'https://formspree.io/f/xaqpzwez'
+
 export default function Quote() {
-  const [status, setStatus] = useState('idle') // idle | sending | sent
+  const [status, setStatus] = useState('idle') // idle | sending | sent | error
   const [leftRef, leftVisible] = useReveal()
   const [rightRef, rightVisible] = useReveal(0.05, 150)
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault()
     setStatus('sending')
-    // Replace with your real form submission logic (e.g. EmailJS / Formspree / API)
-    setTimeout(() => {
-      setStatus('sent')
-      setTimeout(() => {
-        setStatus('idle')
+
+    try {
+      const res = await fetch(FORMSPREE_URL, {
+        method: 'POST',
+        headers: { 'Accept': 'application/json' },
+        body: new FormData(e.target),
+      })
+
+      if (res.ok) {
+        setStatus('sent')
         e.target.reset()
-      }, 3000)
-    }, 1200)
+        setTimeout(() => setStatus('idle'), 4000)
+      } else {
+        setStatus('error')
+        setTimeout(() => setStatus('idle'), 4000)
+      }
+    } catch {
+      setStatus('error')
+      setTimeout(() => setStatus('idle'), 4000)
+    }
   }
 
   const btnLabel = {
-    idle: 'Send Request →',
+    idle:    'Send Request →',
     sending: 'Sending…',
-    sent: '✓ Request Received',
+    sent:    '✓ Request Received',
+    error:   'Failed — Try Again',
   }[status]
 
   return (
     <section id="quote" className={styles.quote}>
       <div className="section-inner">
         <div className={styles.layout}>
+
           {/* Left */}
-          <div
-            ref={leftRef}
-            className={`reveal ${leftVisible ? 'visible' : ''}`}
-          >
+          <div ref={leftRef} className={`reveal ${leftVisible ? 'visible' : ''}`}>
             <div className="label-row">
               <div className="label-line" />
               <span className="label-text">Get a Quote</span>
@@ -95,27 +108,42 @@ export default function Quote() {
             className={`reveal ${rightVisible ? 'visible' : ''}`}
             style={{ transitionDelay: '0.15s' }}
           >
+            {/* Success banner */}
+            {status === 'sent' && (
+              <div className={styles.successBanner}>
+                We've received your request and will be in touch within 24 hours.
+              </div>
+            )}
+
+            {/* Error banner */}
+            {status === 'error' && (
+              <div className={styles.errorBanner}>
+                Something went wrong. Please email us directly at info@links-evo.co.ke
+              </div>
+            )}
+
             <form className={styles.form} onSubmit={handleSubmit}>
+
               <div className={styles.row}>
                 <div className={styles.field}>
                   <label className={styles.label}>Full Name *</label>
-                  <input type="text" placeholder="John Kamau" required />
+                  <input name="name" type="text" placeholder="John Kamau" required />
                 </div>
                 <div className={styles.field}>
                   <label className={styles.label}>Phone / WhatsApp *</label>
-                  <input type="tel" placeholder="+254 7XX XXX XXX" required />
+                  <input name="phone" type="tel" placeholder="+254 7XX XXX XXX" required />
                 </div>
               </div>
 
               <div className={styles.field}>
                 <label className={styles.label}>Email Address</label>
-                <input type="email" placeholder="john@company.co.ke" />
+                <input name="email" type="email" placeholder="john@company.co.ke" />
               </div>
 
               <div className={styles.row}>
                 <div className={styles.field}>
                   <label className={styles.label}>Client Type *</label>
-                  <select required defaultValue="">
+                  <select name="client_type" required defaultValue="">
                     <option value="" disabled>Select…</option>
                     {CLIENT_TYPES.map((t) => (
                       <option key={t} value={t}>{t}</option>
@@ -124,7 +152,7 @@ export default function Quote() {
                 </div>
                 <div className={styles.field}>
                   <label className={styles.label}>Primary Service *</label>
-                  <select required defaultValue="">
+                  <select name="service" required defaultValue="">
                     <option value="" disabled>Select…</option>
                     {SERVICES.map((s) => (
                       <option key={s} value={s}>{s}</option>
@@ -135,12 +163,13 @@ export default function Quote() {
 
               <div className={styles.field}>
                 <label className={styles.label}>Location / Town</label>
-                <input type="text" placeholder="e.g. Westlands, Nairobi" />
+                <input name="location" type="text" placeholder="e.g. Westlands, Nairobi" />
               </div>
 
               <div className={styles.field}>
                 <label className={styles.label}>Project Description</label>
                 <textarea
+                  name="description"
                   rows={4}
                   placeholder="Brief description of your site, existing systems, and what you need done…"
                 />
@@ -152,12 +181,17 @@ export default function Quote() {
                 </p>
                 <button
                   type="submit"
-                  className={`${styles.submit} ${status === 'sent' ? styles.submitSent : ''}`}
-                  disabled={status !== 'idle'}
+                  className={`
+                    ${styles.submit}
+                    ${status === 'sent'  ? styles.submitSent  : ''}
+                    ${status === 'error' ? styles.submitError : ''}
+                  `}
+                  disabled={status === 'sending' || status === 'sent'}
                 >
                   {btnLabel}
                 </button>
               </div>
+
             </form>
           </div>
         </div>

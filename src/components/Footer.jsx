@@ -54,7 +54,7 @@ export default function Footer() {
           <h5>Contact</h5>
           <ul>
             <li><a href="#quote">Request a Quote</a></li>
-            <li><a href="tel:+254700000000">+254 700 000 000</a></li>
+            <li><a href="tel:+254706318757">+254 706 318 757</a></li>
             <li><a href="mailto:info@links-evo.co.ke">info@links-evo.co.ke</a></li>
             <li><a href="#quote">Emergency Call-Out</a></li>
           </ul>
